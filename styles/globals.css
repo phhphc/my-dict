@@ -1,16 +1,44 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+body:before{
+  display: block;
+  content: "";
+  height: 60px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.hover-btn {
+  opacity: 0;
+  transition: 0.5s 0s;
 }
 
-* {
-  box-sizing: border-box;
+.card:hover .hover-btn {
+  opacity: 1;
+  transition: 0.5s 0s;
+}
+
+.hover-btn:active {
+  padding: 1px;
+}
+
+.hover-btn:hover {
+  background-color: white;
+  transition: 0s;
+}
+
+.word-pronon {
+  margin: 0px 20px;
+  padding: 0px 10px;
+  border-radius: 12px;
+}
+
+.word-pronon:hover {
+  background-color: whitesmoke;
+}
+
+.word-define {
+  border-bottom: 1px solid #dee2e6;
+  margin: 10px;
+  padding: 10px 5px;
+}
+
+.word-define:hover {
+  background-color: whitesmoke;
 }
