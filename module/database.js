@@ -9,13 +9,13 @@ function LOG(type, functionName, ...arg) { console.log(type, functionName, Date(
 const ERROR = "ERROR"
 const DETAIL = "DETAIL"
 
-const CORE_DATABASE = "my-dict"
+const CORE_DATABASE = "tmp-dict" //"my-dict"
 const CLIENT_DATABASE = "client-dict"
 
 const WORD_COLLECTION = "word-list"
 const USER_COLLECTION = "users"
 
-const uri = "mongodb+srv://mainguyenbinh32:F7MzcweQAdD6tJs@test.zi9ln.mongodb.net?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.mongo_user}:${process.env.mongo_pass}@test.zi9ln.mongodb.net?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -45,9 +45,9 @@ function getWord(wordName) {
             if (word == null) {
                 try {
                     word = await cambridge(wordName)
-                    //await collection.updateOne({ word: word.word }, { $set: word }, { upsert: true }).catch(err => {
-                    //    LOG(ERROR, "addWord", err)
-                    //})
+                    await collection.updateOne({ word: word.word }, { $set: word }, { upsert: true }).catch(err => {
+                        LOG(ERROR, "addWord", err)
+                    })
                 } catch (err) {
                     LOG(DETAIL, "cambridge lookup " + wordName, err)
                 }
@@ -58,6 +58,24 @@ function getWord(wordName) {
         })
     })
 
+}
+
+function getWordList() {
+    return new Promise((resolve, reject) => {
+        client.connect(err => {
+            const collection = client.db(CORE_DATABASE).collection(WORD_COLLECTION)
+            collection.find(null, { projection: { _id: 0 } }).toArray().then(result => resolve(result))
+        })
+    })
+}
+
+function deleteUserWord(wordName) {
+    return new Promise((resolve, reject) => {
+        client.connect(err => {
+            const collection = client.db(CORE_DATABASE).collection(WORD_COLLECTION)
+            collection.deleteOne({ word: wordName }).then((result) => resolve(result.deletedCount))
+        })
+    })
 }
 
 async function addAccount(accountName, password) {
@@ -76,4 +94,6 @@ async function addAccount(accountName, password) {
 
 export {
     getWord,
+    getWordList,
+    deleteUserWord,
 }
