@@ -29,22 +29,14 @@ async function addWord(word) {
 
 function getWord(wordName) {
     return new Promise((resolve, reject) => {
-
-
         client.connect(async err => {
-
-            if (err) {
-                LOG(ERROR, "client.connect", err)
-                return -1
-            }
-
-
             const collection = client.db(CORE_DATABASE).collection(WORD_COLLECTION)
-
             let word = await collection.findOne({ word: wordName }, { projection: { _id: 0 } })
+
             if (word == null) {
                 try {
                     word = await cambridge(wordName)
+                    resolve(word)
                     await collection.updateOne({ word: word.word }, { $set: word }, { upsert: true }).catch(err => {
                         LOG(ERROR, "addWord", err)
                     })
@@ -52,7 +44,6 @@ function getWord(wordName) {
                     LOG(DETAIL, "cambridge lookup " + wordName, err)
                 }
             }
-            resolve(word)
 
             client.close()
         })
