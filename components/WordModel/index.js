@@ -36,6 +36,7 @@ function WordModal({ show, setShow, word, mean }) {
                             alert(`${res.data} Word deleted`)
                         }
                     })
+                    setShow(false)
                 }}>
                     Delete
                 </Button>

@@ -62,7 +62,7 @@ function getType(str) {
 }
 
 function dropTag(str) {
-    return str.replaceAll(/(<([^>]+)>)/ig, '').replaceAll('  ', '')
+    return str.replace(/(<([^>]+)>)/ig, '').replace(/  /g, '')
 }
 
 function getMean(str) {
