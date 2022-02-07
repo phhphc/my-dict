@@ -7,6 +7,7 @@ export default function Home() {
     <div>
       <Head>
         <title>My Dict</title>
+        <meta name="author" content='Pham Huu Phuoc' />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

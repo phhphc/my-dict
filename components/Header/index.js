@@ -1,13 +1,23 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { get } from 'axios'
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap"
+import { useSelector, useDispatch } from "react-redux"
+import { addManyWord, addWord } from "../../app/dictSlide"
 import WordModal from "../WordModel"
 
 function Header() {
     const [searchWord, setSearchWord] = useState("")
     const [show, setShow] = useState(false)
-    const [modalWord, setModalWord] = useState({word: "", mean: []})
+    const [modalWord, setModalWord] = useState({ word: "", mean: [] })
 
+    const wordsDict = useSelector((state) => state.dict.words)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (wordsDict.length == 0) {
+            get('/api/user/word-list').then((res) => dispatch(addManyWord(res.data)))
+        }
+    }, [])
 
     return (
         <Navbar variant="dark" bg="success" fixed="top" expand="sm" className="shadow">
@@ -21,14 +31,24 @@ function Header() {
                         <Nav.Link href="/manage">Manage</Nav.Link>
                         <Nav.Link href="/account">Account</Nav.Link>
                     </Nav>
-                    <Form className="d-flex" onSubmit={(e) => {
+                    <Form className="d-flex" onSubmit={async (e) => {
                         e.preventDefault()
-                        get(`/api/look-up/${searchWord}`)
-                            .then(res => {
-                                setModalWord(res.data)
-                                setShow(true)
-                            })
-                            .catch(()=> alert("word not found"))
+
+                        let wordData = wordsDict.find(word => word.word == searchWord)
+                        if (!wordData) {
+                            await get(`/api/user/${searchWord}`)
+                                .then((res => {
+                                    wordData = res.data
+                                    dispatch(addWord(wordData))
+                                }))
+                                .catch(() => alert("word not found"))
+                        }
+
+                        if (wordData) {
+                            setModalWord(wordData)
+                            setShow(true)
+                        }
+
                         setSearchWord("")
                     }}>
                         <Form.Control type="search" className="me-2" placeholder="Search Word"
@@ -40,7 +60,7 @@ function Header() {
 
             <WordModal show={show} setShow={setShow} {...modalWord} />
 
-        </Navbar>
+        </Navbar >
     )
 }
 

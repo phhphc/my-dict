@@ -31,19 +31,16 @@ function getWord(wordName) {
     return new Promise((resolve, reject) => {
         client.connect(async err => {
             const collection = client.db(CORE_DATABASE).collection(WORD_COLLECTION)
-            let word = await collection.findOne({ word: wordName }, { projection: { _id: 0 } })
 
-            if (word == null) {
-                try {
-                    word = await cambridge(wordName)
-                    resolve(word)
-                    await collection.updateOne({ word: word.word }, { $set: word }, { upsert: true }).catch(err => {
-                        LOG(ERROR, "addWord", err)
-                    })
-                } catch (err) {
+            const word = await cambridge(wordName)
+                .catch(err => {
                     LOG(DETAIL, "cambridge lookup " + wordName, err)
-                }
-            }
+                })
+            resolve(word)
+            await collection.updateOne({ word: word.word }, { $set: word }, { upsert: true })
+                .catch(err => {
+                    LOG(ERROR, "addWord", err)
+                })
 
             client.close()
         })

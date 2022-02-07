@@ -1,7 +1,11 @@
 import { Modal, Button } from "react-bootstrap"
 import axios from "axios"
+import { useDispatch } from "react-redux"
+import { removeWord } from "../../app/dictSlide"
 
 function WordModal({ show, setShow, word, mean }) {
+    const dispatch = useDispatch()
+
     return (
         <Modal show={show} onHide={() => setShow(false)} centered size="xl">
             <Modal.Header closeButton>
@@ -30,11 +34,7 @@ function WordModal({ show, setShow, word, mean }) {
             <Modal.Footer>
                 <Button variant="primary" onClick={() => {
                     axios.delete(`/api/user/${word}`).then((res) => {
-                        if (res.data == 0) {
-                            alert("Word not found")
-                        } else {
-                            alert(`${res.data} Word deleted`)
-                        }
+                        dispatch(removeWord(word))
                     })
                     setShow(false)
                 }}>
