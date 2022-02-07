@@ -1,14 +1,17 @@
 import { Card, Row, Col } from "react-bootstrap"
+import { showWordModel } from "../../app/wordModelSlide"
+import { useDispatch } from "react-redux"
 
-function WordCard({ word, mean, setShow, setModalWord }) {
+function WordCard({ word, mean }) {
+    const dispatch = useDispatch()
+
     return (
         <Card bg="light" className="shadow h-100 border-warning">
             <Card.Header className="d-flex justify-content-between bg-warning">
                 <div></div>
                 <div>{word}</div>
                 <div onClick={() => {
-                    setShow(true)
-                    setModalWord({ word, mean })
+                    dispatch(showWordModel({ word, mean }))
                 }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         viewBox="0 0 16 16" className="hover-btn" >

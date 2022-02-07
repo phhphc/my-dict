@@ -3,12 +3,12 @@ import { get } from 'axios'
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { addManyWord, addWord } from "../../app/dictSlide"
-import WordModal from "../WordModel"
+import { showWordModel } from "../../app/wordModelSlide"
+
 
 function Header() {
     const [searchWord, setSearchWord] = useState("")
-    const [show, setShow] = useState(false)
-    const [modalWord, setModalWord] = useState({ word: "", mean: [] })
+
 
     const wordsDict = useSelector((state) => state.dict.words)
     const dispatch = useDispatch()
@@ -45,8 +45,7 @@ function Header() {
                         }
 
                         if (wordData) {
-                            setModalWord(wordData)
-                            setShow(true)
+                            dispatch(showWordModel(wordData))
                         }
 
                         setSearchWord("")
@@ -57,8 +56,6 @@ function Header() {
                     </Form>
                 </Navbar.Collapse>
             </Container>
-
-            <WordModal show={show} setShow={setShow} {...modalWord} />
 
         </Navbar >
     )
