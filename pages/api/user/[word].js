@@ -1,4 +1,4 @@
-import { deleteUserWord, getWord } from "../../../module/database";
+import { deleteUserWord, getWord } from "../../../lib/database";
 
 export default async function handler(req, res) {
     if (req.method == 'DELETE') {

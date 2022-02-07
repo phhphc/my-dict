@@ -1,5 +1,5 @@
-import { getWordList } from "../../../module/database"
+import { getUserWordList as getUserWordList } from "../../../lib/database"
 
 export default async function handler(req, res) {
-    res.status(200).send(await getWordList())
+    res.status(200).send(await getUserWordList())
 }
