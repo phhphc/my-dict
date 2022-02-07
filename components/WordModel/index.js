@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-bootstrap"
-import axios from "axios"
+import { delete as axiosDelete } from "axios"
 import { useDispatch } from "react-redux"
 import { removeWord } from "../../app/dictSlide"
 
@@ -33,7 +33,7 @@ function WordModal({ show, setShow, word, mean }) {
 
             <Modal.Footer>
                 <Button variant="primary" onClick={() => {
-                    axios.delete(`/api/user/${word}`).then((res) => {
+                    axiosDelete(`/api/user/${word}`).then((res) => {
                         dispatch(removeWord(word))
                     })
                     setShow(false)
