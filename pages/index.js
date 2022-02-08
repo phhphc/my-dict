@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import WordList from '../components/WordList'
 import WordModal from '../components/WordModel'
+import FillWord from '../components/FillWord'
 
 export default function Home() {
   return (
@@ -13,6 +14,8 @@ export default function Home() {
       </Head>
 
       <Header />
+
+      <FillWord />
 
       <WordList />
 
