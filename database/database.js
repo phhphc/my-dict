@@ -1,17 +1,18 @@
 import clientPromise from "./mongodb"
-import lookUp from "./cambridge"
+import lookUp from "../lib/cambridge"
 
 const WORD_COLLECTION = "word-list" // later replace with user-name
 
-async function getWord(wordName) {
+async function addUserWord(wordData) {
     const client = await clientPromise
-    
-    const word = await lookUp(wordName)
-    
-    const collection = client.db().collection(WORD_COLLECTION)
-    collection.updateOne({ word: word.word }, { $set: word }, { upsert: true }).catch(console.log)
 
-    return word
+    const collection = client.db().collection(WORD_COLLECTION)
+    try {
+        collection.updateOne({ word: wordData.word }, { $set: wordData }, { upsert: true })
+        return true
+    } catch {
+        return false
+    }
 }
 
 async function getUserWordList() {
@@ -34,7 +35,7 @@ async function deleteUserWord(wordName) {
 
 
 export {
-    getWord,
+    addUserWord,
     getUserWordList,
     deleteUserWord,
 
