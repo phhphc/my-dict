@@ -1,0 +1,22 @@
+.myTextarea {
+    width: 100%;
+    resize: none;
+    padding: 0px;
+    overflow: hidden;
+    border: none;
+}
+
+.myTextarea:focus {
+    outline: none;
+}
+
+.myBorder {
+    border-bottom: 1px solid #dee2e6;
+}
+
+@media (min-width: 768px) {
+    .myBorder {
+        border-right: 1px solid #dee2e6 !important;
+        border-bottom: none !important;
+    }
+}

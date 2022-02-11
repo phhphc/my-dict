@@ -6,7 +6,7 @@ function WordList() {
     const wordsDict = useSelector(state => state.dict.words)
 
     return (
-        <Container fluid className="p-5 text-center">
+        <Container className="text-center">
             <Row>
                 {wordsDict.map(wordData => (
                     <Col key={wordData.word} md="6" lg="4" className="p-2">

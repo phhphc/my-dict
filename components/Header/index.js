@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { addManyWord, addWord } from "../../app/dictSlide"
 import { showWordModel } from "../../app/wordModelSlide"
 import lookUp from "../../lib/cambridge"
-
+import Link from "next/link"
+import { useRouter } from "next/router"
 
 function Header() {
     const [searchWord, setSearchWord] = useState("")
@@ -14,6 +15,8 @@ function Header() {
 
     const wordsDict = useSelector((state) => state.dict.words)
     const dispatch = useDispatch()
+
+    const router = useRouter()
 
     useEffect(() => {
         if (wordsDict.length == 0) {
@@ -27,11 +30,27 @@ function Header() {
                 <Navbar.Brand href="#">MyDict</Navbar.Brand>
                 <Navbar.Toggle type="button" />
                 <Navbar.Collapse>
-                    <Nav className="me-auto mb-2 mb-md-0" activeKey="/">
-                        <Nav.Link href="/">Practice</Nav.Link>
-                        <Nav.Link href="/learn">Learn</Nav.Link>
-                        <Nav.Link href="/manage">Manage</Nav.Link>
-                        <Nav.Link href="/account">Account</Nav.Link>
+                    <Nav className="me-auto mb-2 mb-md-0" defaultActiveKey={router.pathname}>
+                        <Link href="/">
+                            <Nav.Link href="/">
+                                Practice
+                            </Nav.Link>
+                        </Link>
+                        <Link href="/learn">
+                            <Nav.Link href="/learn">
+                                Learn
+                            </Nav.Link>
+                        </Link>
+                        <Link href="/manage">
+                            <Nav.Link href="/manage">
+                                Manage
+                            </Nav.Link>
+                        </Link>
+                        <Link href="/account">
+                            <Nav.Link href="/account">
+                                Account
+                            </Nav.Link>
+                        </Link>
                     </Nav>
                     <Form className="d-flex" onSubmit={async (e) => {
                         setSearching(true)

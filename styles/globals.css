@@ -1,4 +1,4 @@
-body:before{
+body:before {
   display: block;
   content: "";
   height: 60px;
@@ -6,12 +6,10 @@ body:before{
 
 .hover-btn {
   opacity: 0;
-  transition: 0.5s 0s;
 }
 
 .card:hover .hover-btn {
   opacity: 1;
-  transition: 0.5s 0s;
 }
 
 .hover-btn:active {
@@ -30,7 +28,7 @@ body:before{
 }
 
 .word-pronon:hover {
-  background-color: whitesmoke;
+  background-color: #F6FCC7;
 }
 
 .word-define {
@@ -40,14 +38,40 @@ body:before{
 }
 
 .word-define:hover {
-  background-color: whitesmoke;
+  background-color: #F6FCC7;;
 }
 
 .spin-animation {
-  -webkit-animation:spin 0.2s linear infinite;
-  -moz-animation:spin 0.2s linear infinite;
-  animation:spin 0.2s linear infinite;
+  -webkit-animation: spin 0.2s linear infinite;
+  -moz-animation: spin 0.2s linear infinite;
+  animation: spin 0.2s linear infinite;
 }
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.flip-animation {
+  transform:  rotate(180deg);
+  -webkit-transform:  rotate(180deg);
+  -moz-transform:  rotate(180deg);
+}
+
+.transition {
+  transition: transform 0.3s;
+}
