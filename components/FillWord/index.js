@@ -5,7 +5,7 @@ import Loading from "../Loading"
 import { showWordModel } from "../../app/wordModelSlide"
 import style from "./style.module.css"
 
-function FillWord() {
+function _FillWord() {
     // two mode fill word and fill mean
     const [fillWord, setFillWord] = useState(true)
     const [selectedWord, setSelectedWord] = useState()
@@ -123,12 +123,12 @@ function FillWord() {
     )
 }
 
-export default function () {
+export default function FillWord() {
     const wordDictLength = useSelector(state => state.dict.words.length)
 
     if (wordDictLength == 0) {
         return <Loading />
     } else {
-        return <FillWord />
+        return <_FillWord />
     }
 }
