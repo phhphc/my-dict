@@ -44,8 +44,9 @@ function _FillWord() {
     }, [fillWord])
 
     return (
-        <Container className="border rounded-3">
-            <Row className="text-center border-bottom" onClick={() => setFillWord(!fillWord)}>
+        <Container className="border rounded-3 m-5 shadow">
+
+            <Row className="text-center border-bottom bg-light fs-5" onClick={() => setFillWord(!fillWord)}>
                 <Col>{fillWord ? "Mean" : "Word"}</Col>
                 <Col md="auto">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -58,10 +59,10 @@ function _FillWord() {
 
 
             <Row>
-                <Col md className={style.myBorder}>
+                <Col md className={`${style.myBorder} p-3`}>
                     {wordHint}
                 </Col>
-                <Col md>
+                <Col md className="p-3">
                     <textarea placeholder="..." value={userFill}
                         className={style.myTextarea}
                         onChange={(e) => {
@@ -95,17 +96,17 @@ function _FillWord() {
             {previousFill &&
                 <>
                     <Row className="border-top">
-                        <Col md className={style.myBorder}>
+                        <Col md className={`${style.myBorder} p-3`}>
                             {previousFill.hint}
                         </Col>
-                        <Col md>
+                        <Col md className="p-3">
                             {previousFill.answer.map((item, index) => (
                                 <div key={index}>{item}</div>
                             ))}
                         </Col>
                     </Row>
                     <Row className="border-top text-center">
-                        <Col>
+                        <Col className="p-3">
                             <span className="px-2">{previousFill.filled || "..."}</span>
                             <span onClick={() => {
                                 dispatch(showWordModel(previousFill))
