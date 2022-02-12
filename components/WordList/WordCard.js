@@ -21,8 +21,8 @@ function WordCard({ word, mean }) {
                 </div>
             </Card.Header>
 
-            {mean.map(mean => (
-                <Card.Body key={mean.type}>
+            {mean.map((mean, index) => (
+                <Card.Body key={index}>
                     <Card.Title className="fs-6">
                         <Row>
                             <Col className="fw-bold">{mean.type}</Col>

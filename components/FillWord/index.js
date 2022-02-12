@@ -44,9 +44,9 @@ function _FillWord() {
     }, [fillWord])
 
     return (
-        <Container className="border rounded-3 m-5 shadow">
+        <Container className="border rounded-3 mt-5 shadow-lg">
 
-            <Row className="text-center border-bottom bg-light fs-5" onClick={() => setFillWord(!fillWord)}>
+            <Row className="text-center border-bottom bg-light fs-5 p-2" onClick={() => setFillWord(!fillWord)}>
                 <Col>{fillWord ? "Mean" : "Word"}</Col>
                 <Col md="auto">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -82,6 +82,7 @@ function _FillWord() {
                                     filled: e.target.value,
                                     word: selectedWord.word,
                                     mean: selectedWord.mean,
+                                    correct: fillWord ? (selectedWord.word==e.target.value) : true
                                 })
 
                                 setUserFill("")
@@ -106,7 +107,7 @@ function _FillWord() {
                         </Col>
                     </Row>
                     <Row className="border-top text-center">
-                        <Col className="p-3">
+                        <Col className={`p-3 ${!previousFill.correct && "bg-warning"}`}>
                             <span className="px-2">{previousFill.filled || "..."}</span>
                             <span onClick={() => {
                                 dispatch(showWordModel(previousFill))
