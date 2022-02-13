@@ -1,5 +1,5 @@
-import { Modal, Button } from "react-bootstrap"
-import { delete as axiosDelete } from "axios"
+import { Modal, Button, Dropdown } from "react-bootstrap"
+import { delete as axiosDelete, put as axiosPut } from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { removeWord } from "../../app/dictSlide"
 import { hideWordModel } from "../../app/wordModelSlide"
@@ -7,6 +7,18 @@ import { hideWordModel } from "../../app/wordModelSlide"
 function WordModal() {
     const dispatch = useDispatch()
     const { show, wordName, wordMean } = useSelector((state) => state.wordModel)
+
+    function hideWordUntil(wordName, duration) {
+        // close model, run in background
+        dispatch(hideWordModel())
+
+        axiosPut(`/api/user/${wordName}`, { hideTime: Date.now() + duration }).then((res) => {
+            console.log("hide " + wordName + " " + res.data)
+
+            // remove it from wordlist
+            dispatch(removeWord(wordName))
+        })
+    }
 
     return (
         <Modal show={show} onHide={() => dispatch(hideWordModel())} centered size="xl">
@@ -36,6 +48,8 @@ function WordModal() {
             <Modal.Footer>
                 <Button variant="outline-danger" onClick={() => {
                     axiosDelete(`/api/user/${wordName}`).then((res) => {
+                        console.debug("delete word " + wordName, "count " + res.data)
+
                         dispatch(removeWord(wordName))
                     })
                     dispatch(hideWordModel())
@@ -45,6 +59,18 @@ function WordModal() {
                         <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                     </svg>
                 </Button>
+
+                <Dropdown>
+                    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+                        Hide until
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => hideWordUntil(wordName, 86400000)}>1 day</Dropdown.Item>
+                        <Dropdown.Item onClick={() => hideWordUntil(wordName, 259200000)}>3 day</Dropdown.Item>
+                        <Dropdown.Item onClick={() => hideWordUntil(wordName, 604800000)}>7 day</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
 
                 <Button variant="primary" onClick={() => {
                     dispatch(hideWordModel())

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { get, post } from 'axios'
+import { get as axiosGet, post as axiosPost } from 'axios'
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 import { addManyWord, addWord } from "../../app/dictSlide"
@@ -19,8 +19,15 @@ function Header() {
     const router = useRouter()
 
     useEffect(() => {
+        // this may lead to infinity loop
+        // consider use bool vaiable isLoaded
         if (wordsDict.length == 0) {
-            get('/api/user/word-list').then((res) => dispatch(addManyWord(res.data)))
+            const timeNow = Date.now()
+            axiosGet('/api/user/word-list').then((res) =>
+                dispatch(addManyWord(res.data.filter((word) =>
+                    word.hideTime <= timeNow
+                )))
+            )
         }
     }, [])
 
@@ -62,7 +69,9 @@ function Header() {
 
                             if (wordData) {
                                 // save word to database
-                                post("/api/user/", wordData)
+                                axiosPost("/api/user/", { ...wordData, hideTime: Date.now() }).then((res) => {
+                                    console.debug("save " + wordData.word + " to database", "count " + res.data)
+                                })
                                 // save word to client browser
                                 dispatch(addWord(wordData))
                             }

@@ -20,7 +20,6 @@ export const dictSlide = createSlice({
         removeWord: (state, action) => {
             state.words = state.words.filter(word => word.word != action.payload)
         }
-
     }
 })
 
