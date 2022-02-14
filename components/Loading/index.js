@@ -1,9 +1,22 @@
-
+import style from "./style.module.css"
 
 function Loading() {
     return (
         <div>
-            Loading ...
+            <div className={style.holder}>
+                <div className={style.preloader}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import style from "./style.module.css"
 function _FillWord() {
     // two mode fill word and fill mean
     const [fillWord, setFillWord] = useState(true)
+    
     const [selectedWord, setSelectedWord] = useState()
     const [wordHint, setWordHint] = useState()
     const [previousFill, setPreviousFill] = useState()
@@ -44,9 +45,9 @@ function _FillWord() {
     }, [fillWord])
 
     return (
-        <Container className="border rounded-3 mt-5 shadow-lg">
+        <Container className="border rounded-3 mt-5 shadow-lg text-white">
 
-            <Row className={"text-center border-bottom fs-5 p-2 bg-light"} onClick={() => setFillWord(!fillWord)}>
+            <Row className={"text-center border-bottom fs-5 p-2 bg-secondary"} onClick={() => setFillWord(!fillWord)}>
                 <div className="d-flex justify-content-between">
                     <div></div>
                     <div>{fillWord ? "Mean" : "Word"}</div>
@@ -111,7 +112,7 @@ function _FillWord() {
                         </Col>
                     </Row>
                     <Row className="border-top text-center">
-                        <Col className={`p-3 ${!previousFill.correct && "bg-warning"}`}>
+                        <Col className={`p-3 ${previousFill.correct ? "text-success" : "text-warning"}`}>
                             <span className="px-2">{previousFill.filled || "..."}</span>
                             <span onClick={() => {
                                 dispatch(showWordModel(previousFill))

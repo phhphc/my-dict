@@ -6,8 +6,8 @@ function WordCard({ word, mean }) {
     const dispatch = useDispatch()
 
     return (
-        <Card bg="light" className="shadow h-100 border-warning">
-            <Card.Header className="d-flex justify-content-between bg-warning">
+        <Card className="shadow h-100 border-light text-warning">
+            <Card.Header className="d-flex justify-content-between bg-secondary">
                 <div></div>
                 <div>{word}</div>
                 <div onClick={() => {

@@ -21,8 +21,8 @@ function WordModal() {
     }
 
     return (
-        <Modal show={show} onHide={() => dispatch(hideWordModel())} centered size="xl">
-            <Modal.Header closeButton>
+        <Modal show={show} onHide={() => dispatch(hideWordModel())} centered size="xl" className="text-white">
+            <Modal.Header closeButton className="bg-secondary">
                 <Modal.Title>{wordName}</Modal.Title>
             </Modal.Header>
 
@@ -61,7 +61,7 @@ function WordModal() {
                 </Button>
 
                 <Dropdown>
-                    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
+                    <Dropdown.Toggle variant="outline-success" id="dropdown-basic">
                         Hide until
                     </Dropdown.Toggle>
 

@@ -1,8 +1,9 @@
 import { Container, Row, Col } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import WordCard from "./WordCard"
+import Loading from "../Loading"
 
-function WordList() {
+function _WordList() {
     const wordsDict = useSelector(state => state.dict.words)
 
     return (
@@ -18,4 +19,12 @@ function WordList() {
     )
 }
 
-export default WordList
+export default function WordList() {
+    const wordDictLength = useSelector(state => state.dict.words.length)
+
+    if (wordDictLength == 0) {
+        return <Loading />
+    } else {
+        return <_WordList />
+    }
+}

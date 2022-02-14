@@ -4,21 +4,29 @@ body:before {
   height: 60px;
 }
 
+html body {
+  background-color: #2D2F48;
+}
+
+textarea {
+  background-color: inherit;
+  color: inherit;
+}
+
+.card {
+  background-color: inherit !important;
+}
+
+.modal-body, .modal-footer {
+  background-color: #2D2F48 !important;
+}
+
 .hover-btn {
   opacity: 0;
 }
 
 .card:hover .hover-btn {
   opacity: 1;
-}
-
-.hover-btn:active {
-  padding: 1px;
-}
-
-.hover-btn:hover {
-  background-color: white;
-  transition: 0s;
 }
 
 .word-pronon {
@@ -28,7 +36,7 @@ body:before {
 }
 
 .word-pronon:hover {
-  background-color: #F6FCC7;
+  background-color: #000;
 }
 
 .word-define {
@@ -38,7 +46,7 @@ body:before {
 }
 
 .word-define:hover {
-  background-color: #F6FCC7;;
+  background-color: #000;;
 }
 
 .spin-animation {
