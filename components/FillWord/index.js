@@ -8,7 +8,7 @@ import style from "./style.module.css"
 function _FillWord() {
     // two mode fill word and fill mean
     const [fillWord, setFillWord] = useState(true)
-    
+
     const [selectedWord, setSelectedWord] = useState()
     const [wordHint, setWordHint] = useState()
     const [previousFill, setPreviousFill] = useState()
@@ -30,6 +30,22 @@ function _FillWord() {
     function randMean(wordData) {
         const meanList = getAllMean(wordData)
         return meanList[Math.floor(Math.random() * meanList.length)]
+    }
+
+    // use in fill mean mode, check if each word of user filled is in mean list  
+    function filledInMean(wordData, filled) {
+        const wordArr = getAllMean(wordData).join(" ").split(/ |:/)
+        const fillArr = filled.split(/ |:|,|\./).filter(item => item != "")
+
+        if (fillArr.length == 0) {
+            return false
+        }
+
+        for (let fill of fillArr) {
+            if (!wordArr.includes(fill)) return false
+        }
+        
+        return true
     }
 
     function getFillWord() {
@@ -87,7 +103,8 @@ function _FillWord() {
                                     filled: e.target.value,
                                     word: selectedWord.word,
                                     mean: selectedWord.mean,
-                                    correct: fillWord ? (selectedWord.word == e.target.value) : true
+                                    correct: fillWord ?
+                                        (selectedWord.word == e.target.value) : filledInMean(selectedWord, e.target.value)
                                 })
 
                                 setUserFill("")

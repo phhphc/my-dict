@@ -21,6 +21,21 @@ textarea {
   background-color: #2D2F48 !important;
 }
 
+.dropdown-menu {
+  background-color: #2D2F48 !important;
+  color: white !important;
+}
+
+.dropdown .dropdown-item {
+  color: white !important;
+}
+
+.dropdown .dropdown-item:hover {
+  background-color: #198754;
+}
+
+
+
 .hover-btn {
   opacity: 0;
 }
@@ -36,17 +51,17 @@ textarea {
 }
 
 .word-pronon:hover {
-  background-color: #000;
+  background-color: #343a40;
 }
 
 .word-define {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #343a40;
   margin: 10px;
   padding: 10px 5px;
 }
 
 .word-define:hover {
-  background-color: #000;;
+  background-color: #343a40;;
 }
 
 .spin-animation {

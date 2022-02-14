@@ -6,7 +6,7 @@ function WordCard({ word, mean }) {
     const dispatch = useDispatch()
 
     return (
-        <Card className="shadow h-100 border-light text-warning">
+        <Card className="shadow h-100 border-secondary text-light">
             <Card.Header className="d-flex justify-content-between bg-secondary">
                 <div></div>
                 <div>{word}</div>

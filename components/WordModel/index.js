@@ -61,7 +61,7 @@ function WordModal() {
                 </Button>
 
                 <Dropdown>
-                    <Dropdown.Toggle variant="outline-success" id="dropdown-basic">
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Hide until
                     </Dropdown.Toggle>
 
