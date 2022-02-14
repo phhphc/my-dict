@@ -8,6 +8,15 @@ html body {
   background-color: #2D2F48;
 }
 
+.form-control {
+  background-color: #2D2F48 !important;
+  color: #fff !important;
+}
+
+.text-shadow {
+  text-shadow: 0px 0px 2px #000;
+}
+
 textarea {
   background-color: inherit;
   color: inherit;

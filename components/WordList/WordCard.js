@@ -7,9 +7,9 @@ function WordCard({ word, mean }) {
 
     return (
         <Card className="shadow h-100 border-secondary text-light">
-            <Card.Header className="d-flex justify-content-between bg-secondary">
+            <Card.Header className="d-flex justify-content-between bg-secondary fw-bolder">
                 <div></div>
-                <div>{word}</div>
+                <div className="text-shadow">{word}</div>
                 <div onClick={() => {
                     dispatch(showWordModel({ word, mean }))
                 }}>
