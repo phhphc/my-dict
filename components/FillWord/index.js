@@ -7,7 +7,7 @@ import style from "./style.module.css"
 
 function _FillWord() {
     // two mode fill word and fill mean
-    const [fillWord, setFillWord] = useState(true)
+    const [fillWord, setFillWord] = useState(false)
 
     const [selectedWord, setSelectedWord] = useState()
     const [wordHint, setWordHint] = useState()
@@ -19,14 +19,17 @@ function _FillWord() {
 
     const dispatch = useDispatch()
 
+    // random a word from wordsDict
     function randWord(wordsDict) {
         return wordsDict[Math.floor(Math.random() * wordsDict.length)]
     }
 
+    // parse wordData, return all define in it as array
     function getAllMean(wordData) {
         return [].concat(...wordData.mean.map(mean => mean.define))
     }
 
+    // random a define from wordData
     function randMean(wordData) {
         const meanList = getAllMean(wordData)
         return meanList[Math.floor(Math.random() * meanList.length)]
@@ -34,7 +37,7 @@ function _FillWord() {
 
     // use in fill mean mode, check if each word of user filled is in mean list  
     function filledInMean(wordData, filled) {
-        const wordArr = getAllMean(wordData).join(" ").split(/ |:/)
+        const wordArr = getAllMean(wordData).join(" ").split(/ |:|,|\./)
         const fillArr = filled.split(/ |:|,|\./).filter(item => item != "")
 
         if (fillArr.length == 0) {
@@ -48,6 +51,7 @@ function _FillWord() {
         return true
     }
 
+    // random a word for user to fill in
     function getFillWord() {
         const _word = randWord(wordsDict)
         const _hint = fillWord ? randMean(_word) : _word.word
@@ -56,6 +60,7 @@ function _FillWord() {
         setWordHint(_hint)
     }
 
+    // create fill word when component mount
     useEffect(() => {
         getFillWord()
     }, [fillWord])
