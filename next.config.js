@@ -11,4 +11,13 @@ module.exports = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/ctf',
+        destination: 'http://flag:3000/flag',
+        permanent: true,
+      },
+    ]
+  },
 }
